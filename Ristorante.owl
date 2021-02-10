@@ -1,0 +1,336 @@
+@prefix : <http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti> .
+
+<http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti> rdf:type owl:Ontology .
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#NumeroCoperti
+:NumeroCoperti rdf:type rdfs:Datatype ;
+               owl:equivalentClass xsd:integer .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#ciLavora
+:ciLavora rdf:type owl:ObjectProperty ;
+          owl:inverseOf :lavoraAl .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#ciLavoraCome
+:ciLavoraCome rdf:type owl:ObjectProperty ;
+              owl:propertyChainAxiom ( :ciLavora
+                                       :lavoraCome
+                                     ) .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#fannoCucina
+:fannoCucina rdf:type owl:ObjectProperty ;
+             owl:inverseOf :èCucinato ;
+             rdfs:domain :Ristorante ;
+             rdfs:range :TipiDiCucina .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#lavoraAl
+:lavoraAl rdf:type owl:ObjectProperty ;
+          rdfs:domain :Personale ;
+          rdfs:range :Ristorante .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#lavoraCome
+:lavoraCome rdf:type owl:ObjectProperty ;
+            rdfs:domain :Ristorante ;
+            rdfs:range :Personale .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#èCucinato
+:èCucinato rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#haIndirizzo
+:haIndirizzo rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Ristorante .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#haNome
+:haNome rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Ristorante .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#numeroCoperti
+:numeroCoperti rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Ristorante ;
+               rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#punteggioMedio
+:punteggioMedio rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Ristorante .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Camerieri
+:Camerieri rdf:type owl:Class ;
+           owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                        owl:onProperty :lavoraAl ;
+                                                        owl:someValuesFrom :Ristorante
+                                                      ]
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty :lavoraCome ;
+                                                        owl:someValuesFrom :Camerieri
+                                                      ]
+                                                    ) ;
+                                 rdf:type owl:Class
+                               ] ;
+           rdfs:subClassOf :Personale .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Cinese
+:Cinese rdf:type owl:Class ;
+        rdfs:subClassOf :CucinaOrientale .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#CucinaMessicana
+:CucinaMessicana rdf:type owl:Class ;
+                 rdfs:subClassOf :TipiDiCucina ;
+                 owl:disjointWith :CucinaOrientale ,
+                                  :CucinaRegionale .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#CucinaOrientale
+:CucinaOrientale rdf:type owl:Class ;
+                 rdfs:subClassOf :TipiDiCucina ;
+                 owl:disjointWith :CucinaRegionale .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#CucinaRegionale
+:CucinaRegionale rdf:type owl:Class ;
+                 rdfs:subClassOf :TipiDiCucina .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#CudinaDiPesce
+:CudinaDiPesce rdf:type owl:Class ;
+               rdfs:subClassOf :TipiDiCucina .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Cuochi
+:Cuochi rdf:type owl:Class ;
+        owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :lavoraAl ;
+                                                     owl:someValuesFrom :Ristorante
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :lavoraCome ;
+                                                     owl:someValuesFrom :Cuochi
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] ;
+        rdfs:subClassOf :Personale .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Giapponese
+:Giapponese rdf:type owl:Class ;
+            rdfs:subClassOf :CucinaOrientale .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Personale
+:Personale rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Piemontese
+:Piemontese rdf:type owl:Class ;
+            rdfs:subClassOf :CucinaRegionale .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Ristorante
+:Ristorante rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#RistoranteGrande
+:RistoranteGrande rdf:type owl:Class ;
+                  owl:equivalentClass [ rdf:type owl:Restriction ;
+                                        owl:onProperty :numeroCoperti ;
+                                        owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                             owl:onDatatype xsd:integer ;
+                                                             owl:withRestrictions ( [ xsd:minExclusive 20
+                                                                                    ]
+                                                                                  )
+                                                           ]
+                                      ] ;
+                  rdfs:subClassOf :Ristorante .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#RistorantePiccolo
+:RistorantePiccolo rdf:type owl:Class ;
+                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                         owl:onProperty :numeroCoperti ;
+                                         owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                              owl:onDatatype xsd:integer ;
+                                                              owl:withRestrictions ( [ xsd:maxInclusive 20
+                                                                                     ]
+                                                                                   )
+                                                            ]
+                                       ] ;
+                   rdfs:subClassOf :Ristorante .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#RistorantiFusion
+:RistorantiFusion rdf:type owl:Class ;
+                  owl:equivalentClass [ rdf:type owl:Restriction ;
+                                        owl:onProperty :fannoCucina ;
+                                        owl:minQualifiedCardinality "3"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :TipiDiCucina
+                                      ] ;
+                  rdfs:subClassOf :Ristorante .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#RistorantiOrientali
+:RistorantiOrientali rdf:type owl:Class ;
+                     owl:equivalentClass [ rdf:type owl:Restriction ;
+                                           owl:onProperty :fannoCucina ;
+                                           owl:someValuesFrom :CucinaOrientale
+                                         ] ;
+                     rdfs:subClassOf :Ristorante .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Thai
+:Thai rdf:type owl:Class ;
+      rdfs:subClassOf :CucinaOrientale .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#TipiDiCucina
+:TipiDiCucina rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Toscana
+:Toscana rdf:type owl:Class ;
+         rdfs:subClassOf :CucinaRegionale .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Trattorie
+:Trattorie rdf:type owl:Class ;
+           owl:equivalentClass [ rdf:type owl:Restriction ;
+                                 owl:onProperty :fannoCucina ;
+                                 owl:someValuesFrom :CucinaRegionale
+                               ] ;
+           rdfs:subClassOf :Ristorante .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Cameriere
+:Cameriere rdf:type owl:NamedIndividual ,
+                    :Camerieri .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Cuoco
+:Cuoco rdf:type owl:NamedIndividual ,
+                :Cuochi .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#FunghiImpanati
+:FunghiImpanati rdf:type owl:NamedIndividual ,
+                         :Piemontese .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Giulia
+:Giulia rdf:type owl:NamedIndividual ;
+        :lavoraAl :IlFungoReale ;
+        :lavoraCome :Cuoco .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#IlFungoReale
+:IlFungoReale rdf:type owl:NamedIndividual ,
+                       :Ristorante ;
+              :fannoCucina :FunghiImpanati ,
+                           :Ravioli ;
+              :haNome "Il fungo reale"^^xsd:string ;
+              :numeroCoperti 25 .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Laura
+:Laura rdf:type owl:NamedIndividual ;
+       :lavoraAl :Ristorante2 ;
+       :lavoraCome :Cuoco .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Marco
+:Marco rdf:type owl:NamedIndividual ;
+       :lavoraAl :Ristorante1 ;
+       :lavoraCome :Cameriere .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Noodles
+:Noodles rdf:type owl:NamedIndividual ,
+                  :Thai .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Paolo
+:Paolo rdf:type owl:NamedIndividual ;
+       :lavoraAl :IlFungoReale ;
+       :lavoraCome :Cameriere .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Ravioli
+:Ravioli rdf:type owl:NamedIndividual ,
+                  :Piemontese .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Ristorante1
+:Ristorante1 rdf:type owl:NamedIndividual ,
+                      :Ristorante ;
+             :fannoCucina :Noodles ;
+             :numeroCoperti 20 .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Ristorante2
+:Ristorante2 rdf:type owl:NamedIndividual ,
+                      :Ristorante ;
+             :fannoCucina :Noodles ,
+                          :Ravioli ,
+                          :Tortilias ,
+                          :ZuppaDiPesce ;
+             :numeroCoperti 8 .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#Tortilias
+:Tortilias rdf:type owl:NamedIndividual ,
+                    :CucinaMessicana .
+
+
+###  http://www.semanticweb.org/berna/ontologies/2020/10/ristoranti#ZuppaDiPesce
+:ZuppaDiPesce rdf:type owl:NamedIndividual ,
+                       :CudinaDiPesce .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Ristorante1
+                        :Ristorante2
+                      )
+] .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
