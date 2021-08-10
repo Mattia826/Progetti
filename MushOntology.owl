@@ -1,0 +1,487 @@
+@prefix : <http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/bernardi_mattia/ontologies/2021/MushOntology> .
+
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/MushOntology> rdf:type owl:Ontology ;
+                                                                           owl:imports <http://www.ontologydesignpatterns.org/cp/owl/partof.owl> ,
+                                                                                       <http://www.ontologydesignpatterns.org/cp/owl/place.owl> ;
+                                                                           <http://purl.org/dc/elements/1.1/creator> "Mattia Bernardi"@en ;
+                                                                           <http://purl.org/dc/elements/1.1/date> "2021/08/03"@en ;
+                                                                           <http://purl.org/dc/elements/1.1/description> "Ontology that describes a piece of mushroom world"@en ;
+                                                                           <http://purl.org/dc/elements/1.1/title> "Mushroom Ontology"@en ;
+                                                                           :vann:preferredNamespacePrefix "Mush"@en ;
+                                                                           :vann:preferredNamespaceUri "http://www.semanticweb.org/bernardi_mattia/ontologies/2021/MushOntology"@en ;
+                                                                           rdfs:label "MushOntology"@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/creator
+<http://purl.org/dc/elements/1.1/creator> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/date
+<http://purl.org/dc/elements/1.1/date> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+<http://purl.org/dc/elements/1.1/description> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+<http://purl.org/dc/elements/1.1/title> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#vann:preferredNamespacePrefix
+:vann:preferredNamespacePrefix rdf:type owl:AnnotationProperty .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#vann:preferredNamespaceUri
+:vann:preferredNamespaceUri rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#FunghiPiemonte
+:FunghiPiemonte rdf:type rdfs:Datatype ;
+                owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                      owl:onDatatype xsd:string ;
+                                      owl:withRestrictions ( [ xsd:pattern "[P][a-z]*"
+                                                             ]
+                                                           )
+                                    ] .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#appartieneAlla
+:appartieneAlla rdf:type owl:ObjectProperty ,
+                         owl:FunctionalProperty ;
+                rdfs:domain :Genere ;
+                rdfs:range :Famiglia ;
+                rdfs:comment "Appartenza di un genere di fungo a una famiglia"@it ;
+                rdfs:label "appartiene alla"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#creaSintomo
+:creaSintomo rdf:type owl:ObjectProperty ;
+             rdfs:domain :Funghi ;
+             rdfs:range :Sintomo ;
+             rdfs:comment "causa un sintomo alla persona"@it ;
+             rdfs:label "crea sintomo"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#fungoDellaFamiglia
+:fungoDellaFamiglia rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Funghi ;
+                    rdfs:range :Famiglia ;
+                    owl:propertyChainAxiom ( :haGenere
+                                             :appartieneAlla
+                                           ) ;
+                    rdfs:comment "Specie del fungo che appartiene a una determinata famiglia"@it ;
+                    rdfs:label "fungo della famiglia"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#haCappello
+:haCappello rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf <http://www.ontologydesignpatterns.org/cp/owl/partof.owl#hasPart> ;
+            rdfs:domain :Funghi ;
+            rdfs:range :Cappello ;
+            rdfs:comment "Carratteristica estetica del cappello del fungo"@it ;
+            rdfs:label "ha cappello"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#haGambo
+:haGambo rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf <http://www.ontologydesignpatterns.org/cp/owl/partof.owl#hasPart> ;
+         rdfs:domain :Funghi ;
+         rdfs:range :Gambo ;
+         rdfs:comment "Caratteristica estetica del gambo del fungo"@it ;
+         rdfs:label "ha gambo"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#haGenere
+:haGenere rdf:type owl:ObjectProperty ;
+          rdfs:domain :Funghi ;
+          rdfs:range :Genere ;
+          rdfs:comment "Apparteneza di una specie a un determinato genere"@it ;
+          rdfs:label "ha genere"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#haHabitat
+:haHabitat rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf <http://www.ontologydesignpatterns.org/cp/owl/place.owl#hasLocation> ;
+           rdfs:domain :Funghi ;
+           rdfs:range :Habitat ;
+           rdfs:comment "luogo in cui nascono e crescono i funghi"@it ;
+           rdfs:label "ha habitat"@it .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Costo
+:Costo rdf:type owl:DatatypeProperty ;
+       rdfs:domain :Funghi ;
+       rdfs:range xsd:integer ;
+       rdfs:comment "Costo al kg dei funghi commercializzati"@it ;
+       rdfs:label "Costo"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Insorgenza
+:Insorgenza rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Sintomo ;
+            rdfs:range xsd:integer ;
+            rdfs:comment "Tempo trascorso dall'ingerimento del fungo alla comparsa dei sintomi"@it ;
+            rdfs:label "Insorgenza"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Provenienza
+:Provenienza rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Funghi ;
+             rdfs:comment "Provenianza del fungo"@it ;
+             rdfs:label "Provenienza"@it .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#AmanitaceaeVelenosi
+:AmanitaceaeVelenosi rdf:type owl:Class ;
+                     owl:equivalentClass [ rdf:type owl:Restriction ;
+                                           owl:onProperty :appartieneAlla ;
+                                           owl:hasValue :Amanitaceae
+                                         ] ;
+                     rdfs:subClassOf :Genere ;
+                     rdfs:comment "Genere a cui appartengo dei funghi, nello specifico quelli Aminita"@it ;
+                     rdfs:label "Amanita"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#BoletaceaeCommestibili
+:BoletaceaeCommestibili rdf:type owl:Class ;
+                        owl:equivalentClass [ rdf:type owl:Restriction ;
+                                              owl:onProperty :appartieneAlla ;
+                                              owl:hasValue :Boletaceae
+                                            ] ;
+                        rdfs:subClassOf :Genere ;
+                        rdfs:comment "Genere a cui appartengo dei funghi, nello specifico quelli Boletus"@it ;
+                        rdfs:label "Boletus"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Cappello
+:Cappello rdf:type owl:Class ;
+          rdfs:subClassOf :Caratteristiche ;
+          rdfs:comment "Forma del cappello del fungo"@it ;
+          rdfs:label "Cappello"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Caratteristiche
+:Caratteristiche rdf:type owl:Class ;
+                 rdfs:comment "Componenti caratteristiche di un fungo"@it ;
+                 rdfs:label "Caratteristiche"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Commestibili
+:Commestibili rdf:type owl:Class ;
+              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                    owl:onProperty :haGenere ;
+                                    owl:someValuesFrom [ rdf:type owl:Class ;
+                                                         owl:unionOf ( :BoletaceaeCommestibili
+                                                                       :MorchellaceaeCommestibili
+                                                                     )
+                                                       ]
+                                  ] ;
+              rdfs:subClassOf :Funghi ;
+              rdfs:label "Commestibili"@it ,
+                         "Funghi commestibili, cioè raccolti e mangiati da animali e persone"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Famiglia
+:Famiglia rdf:type owl:Class ;
+          owl:equivalentClass [ rdf:type owl:Class ;
+                                owl:oneOf ( :Amanitaceae
+                                            :Boletaceae
+                                          )
+                              ] ;
+          rdfs:label "Famiglia"@it ,
+                     "Famiglia a cui appartengo i funghi"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Funghi
+:Funghi rdf:type owl:Class ;
+        rdfs:comment "Classe contente i funghi analizzati"@it ;
+        rdfs:label "Funghi"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#FunghiDelPiemonte
+:FunghiDelPiemonte rdf:type owl:Class ;
+                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                         owl:onProperty :Provenienza ;
+                                         owl:someValuesFrom :FunghiPiemonte
+                                       ] ;
+                   rdfs:subClassOf <http://www.ontologydesignpatterns.org/cp/owl/place.owl#Place> ;
+                   rdfs:comment "Fughi presenti in molti stati europeri e commerciati e consumati particolarmente sempre in Europa"@it ;
+                   rdfs:label "Funghi europei"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#FunghiPiùCari
+:FunghiPiùCari rdf:type owl:Class ;
+               owl:equivalentClass [ rdf:type owl:Restriction ;
+                                     owl:onProperty :Costo ;
+                                     owl:someValuesFrom [ rdf:type rdfs:Datatype ;
+                                                          owl:onDatatype xsd:integer ;
+                                                          owl:withRestrictions ( [ xsd:minInclusive 30
+                                                                                 ]
+                                                                               )
+                                                        ]
+                                   ] ;
+               rdfs:subClassOf :Funghi ;
+               rdfs:comment "Funghi il cui costo è mediamente elavato in commercio, facendo riferimento al mercato europeo"@it ;
+               rdfs:label "Funghi più cari"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Gambo
+:Gambo rdf:type owl:Class ;
+       rdfs:subClassOf :Caratteristiche ;
+       rdfs:comment "Forma del gambo del fungo"@it ;
+       rdfs:label "Gambo"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Genere
+:Genere rdf:type owl:Class ;
+        rdfs:comment "Genere a cui appartengo i funghi"@it ;
+        rdfs:label "Genere"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Habitat
+:Habitat rdf:type owl:Class ;
+         rdfs:subClassOf <http://www.ontologydesignpatterns.org/cp/owl/place.owl#Place> ;
+         rdfs:comment "Luoghi in cui ci sono le condizioni biologiche che consento la nascita e la crescita dei funghi"@it ;
+         rdfs:label "Habitat"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#IntossicazioneGrave
+:IntossicazioneGrave rdf:type owl:Class ;
+                     owl:equivalentClass [ rdf:type owl:Restriction ;
+                                           owl:onProperty :creaSintomo ;
+                                           owl:minQualifiedCardinality "3"^^xsd:nonNegativeInteger ;
+                                           owl:onClass :Sintomo
+                                         ] ;
+                     rdfs:subClassOf :Velenosi ;
+                     rdfs:comment "Funghi che causano un intossicazione grave, che vede più sintomi diversi. Può causare anche la morte"@it ;
+                     rdfs:label "Intossicazione grave"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#IntossicazioneLieve
+:IntossicazioneLieve rdf:type owl:Class ;
+                     owl:equivalentClass [ rdf:type owl:Restriction ;
+                                           owl:onProperty :creaSintomo ;
+                                           owl:someValuesFrom :Sintomo
+                                         ] ;
+                     rdfs:subClassOf :Velenosi ;
+                     rdfs:comment "Funghi che causano un lieve intossicazione non mortale, di solito compaiono uno/due sintomi"@it ;
+                     rdfs:label "Intossicazione lieve"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#MorchellaceaeCommestibili
+:MorchellaceaeCommestibili rdf:type owl:Class ;
+                           rdfs:subClassOf :Genere ;
+                           rdfs:comment "Genere a cui appartengo dei funghi, nello specifico quelli Morchella"@it ;
+                           rdfs:label "Morchella"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Sintomo
+:Sintomo rdf:type owl:Class ;
+         rdfs:comment "Sintomi più comuni che caratterizzano un'intossicazione dovuta dall'ingestione di un fungo"@it ;
+         rdfs:label "Sintomo"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Velenosi
+:Velenosi rdf:type owl:Class ;
+          owl:equivalentClass [ rdf:type owl:Restriction ;
+                                owl:onProperty :haGenere ;
+                                owl:someValuesFrom :AmanitaceaeVelenosi
+                              ] ;
+          rdfs:subClassOf :Funghi ;
+          rdfs:comment "Funghi velenosi, non commestibili per gli uomini e la maggior parte degli animali"@it ;
+          rdfs:label "Velenosi"@it .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Amanita
+:Amanita rdf:type owl:NamedIndividual ;
+         :appartieneAlla :Amanitaceae ;
+         rdfs:comment "Genere di un fungo"@it ;
+         rdfs:label "Amanita"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#AmanitaMuscaria
+:AmanitaMuscaria rdf:type owl:NamedIndividual ,
+                          :Funghi ;
+                 :creaSintomo :Cefalea ;
+                 :haCappello :CappelloConvesso ;
+                 :haGambo :GamboSlanciato ;
+                 :haGenere :Amanita ;
+                 :haHabitat :boschiConifere ,
+                            :boschiLatifoglie ;
+                 rdfs:comment "Specie di un fungo"@it ;
+                 rdfs:label "Amanita muscaria"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Amanitaceae
+:Amanitaceae rdf:type owl:NamedIndividual ;
+             rdfs:comment "Famiglia di un fungo"@it ;
+             rdfs:label "Amanitaceae"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Boletaceae
+:Boletaceae rdf:type owl:NamedIndividual ;
+            rdfs:comment "Famiglia di un fungo"@it ;
+            rdfs:label "Boletaceae"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Boletus
+:Boletus rdf:type owl:NamedIndividual ;
+         :appartieneAlla :Boletaceae ;
+         rdfs:comment "Genere di un fungo"@it ;
+         rdfs:label "Boletus"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#CappelloConvesso
+:CappelloConvesso rdf:type owl:NamedIndividual ,
+                           :Cappello ;
+                  rdfs:comment "Forma tipica del cappello di alcuni funghi"@it ;
+                  rdfs:label "Cappello convesso"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Cappello_a_coppa
+:Cappello_a_coppa rdf:type owl:NamedIndividual ,
+                           :Cappello ;
+                  rdfs:comment "Forma tipica del cappello di alcuni funghi"@it ;
+                  rdfs:label "Cappello a coppa"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Cefalea
+:Cefalea rdf:type owl:NamedIndividual ,
+                  :Sintomo ;
+         :Insorgenza 18 ;
+         rdfs:comment "Sintomo causato da intossicazione"@it ;
+         rdfs:label "Cefalea"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#DoloriAddominali
+:DoloriAddominali rdf:type owl:NamedIndividual ,
+                           :Sintomo ;
+                  rdfs:comment "Sintomo causato da intossicazione"@it ;
+                  rdfs:label "Dolori addominali"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#GamboSlanciato
+:GamboSlanciato rdf:type owl:NamedIndividual ,
+                         :Gambo ;
+                rdfs:comment "Forma tipica del gambo di alcuni funghi"@it ;
+                rdfs:label "Gambo slanciato"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Gambo_grosso
+:Gambo_grosso rdf:type owl:NamedIndividual ,
+                       :Gambo ;
+              rdfs:comment "Forma tipica del gambo di alcuni funghi"@it ;
+              rdfs:label "Gambo grosso"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Ipersalivazione
+:Ipersalivazione rdf:type owl:NamedIndividual ,
+                          :Sintomo ;
+                 rdfs:comment "Sintomo causato da intossicazione"@it ;
+                 rdfs:label "Ipersalivazione"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Porcino
+:Porcino rdf:type owl:NamedIndividual ,
+                  :Funghi ;
+         :haCappello :Cappello_a_coppa ;
+         :haGambo :Gambo_grosso ;
+         :haGenere :Boletus ;
+         :haHabitat :boschiLatifoglie ;
+         :Costo 30 ;
+         :Provenienza "Piemonte" ;
+         rdfs:comment "Specie di fungo"@it ;
+         rdfs:label "Porcino"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#boschiConifere
+:boschiConifere rdf:type owl:NamedIndividual ,
+                         :Habitat ;
+                rdfs:comment "Habitat tipico di determinati tipi di funghi"@it ;
+                rdfs:label "Boschi di conifere"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#boschiLatifoglie
+:boschiLatifoglie rdf:type owl:NamedIndividual ,
+                           :Habitat ;
+                  rdfs:comment "Habitat tipico di determinati tipi di funghi"@it ;
+                  rdfs:label "Boschi di latifoglie"@it .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :CappelloConvesso
+                        :Cappello_a_coppa
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Cefalea
+                        :DoloriAddominali
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Cefalea
+                        :Ipersalivazione
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :DoloriAddominali
+                        :Ipersalivazione
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :GamboSlanciato
+                        :Gambo_grosso
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :boschiConifere
+                        :boschiLatifoglie
+                      )
+] .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
