@@ -49,6 +49,16 @@
 #    Datatypes
 #################################################################
 
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#FunghiDelPiemonte
+:FunghiDelPiemonte rdf:type rdfs:Datatype ;
+                   owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                         owl:onDatatype xsd:string ;
+                                         owl:withRestrictions ( [ xsd:pattern "Piemonte"
+                                                                ]
+                                                              )
+                                       ] .
+
+
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#FunghiPiemonte
 :FunghiPiemonte rdf:type rdfs:Datatype ;
                 owl:equivalentClass [ rdf:type rdfs:Datatype ;
@@ -59,9 +69,24 @@
                                     ] .
 
 
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Primavera
+:Primavera rdf:type rdfs:Datatype ;
+           owl:equivalentClass [ rdf:type rdfs:Datatype ;
+                                 owl:onDatatype xsd:string ;
+                                 owl:withRestrictions ( [ xsd:pattern "Aprile"
+                                                        ]
+                                                      )
+                               ] .
+
+
 #################################################################
 #    Object Properties
 #################################################################
+
+###  http://www.ontologydesignpatterns.org/cp/owl/place.owl#isLocationOf
+<http://www.ontologydesignpatterns.org/cp/owl/place.owl#isLocationOf> rdfs:domain owl:Thing ;
+                                                                      rdfs:range owl:Thing .
+
 
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#appartieneAlla
 :appartieneAlla rdf:type owl:ObjectProperty ,
@@ -110,7 +135,8 @@
 
 
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#haGenere
-:haGenere rdf:type owl:ObjectProperty ;
+:haGenere rdf:type owl:ObjectProperty ,
+                   owl:FunctionalProperty ;
           rdfs:domain :Funghi ;
           rdfs:range :Genere ;
           rdfs:comment "Apparteneza di una specie a un determinato genere"@it ;
@@ -124,6 +150,22 @@
            rdfs:range :Habitat ;
            rdfs:comment "luogo in cui nascono e crescono i funghi"@it ;
            rdfs:label "ha habitat"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#haProvenienza
+:haProvenienza rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf <http://www.ontologydesignpatterns.org/cp/owl/place.owl#hasLocation> ;
+               rdfs:domain :Funghi ;
+               rdfs:range <http://www.ontologydesignpatterns.org/cp/owl/place.owl#Place> ;
+               rdfs:comment "luogo di provenineza dei funghi"@it ;
+               rdfs:label "ha provenienza"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#haStagionalità
+:haStagionalità rdf:type owl:ObjectProperty ,
+                         owl:FunctionalProperty ;
+                rdfs:comment "relazione che lega un fungo alla stagionalità in cui è possibile trovarlo nei boschi"@it ;
+                rdfs:label "ha stagionalità"@it .
 
 
 #################################################################
@@ -146,11 +188,11 @@
             rdfs:label "Insorgenza"@it .
 
 
-###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Provenienza
-:Provenienza rdf:type owl:DatatypeProperty ;
-             rdfs:domain :Funghi ;
-             rdfs:comment "Provenianza del fungo"@it ;
-             rdfs:label "Provenienza"@it .
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#ProvenienzaRegione
+:ProvenienzaRegione rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Funghi ;
+                    rdfs:comment "Regione precisa di provenineza del fungo"@it ;
+                    rdfs:label "Regione di provenienza"@it .
 
 
 #################################################################
@@ -166,6 +208,17 @@
                      rdfs:subClassOf :Genere ;
                      rdfs:comment "Genere a cui appartengo dei funghi, nello specifico quelli Aminita"@it ;
                      rdfs:label "Amanita"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Autunno
+:Autunno rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Restriction ;
+                               owl:onProperty :haStagionalità ;
+                               owl:someValuesFrom :Autunno
+                             ] ;
+         rdfs:subClassOf :Stagione ;
+         rdfs:comment "Stagione autunnale che comprende soprattutto il mese di ottobre per raccogliere determinati tipi di funghi"@it ;
+         rdfs:label "Autunno"@it .
 
 
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#BoletaceaeCommestibili
@@ -207,11 +260,30 @@
                          "Funghi commestibili, cioè raccolti e mangiati da animali e persone"@it .
 
 
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#ContinenteEuropeo
+:ContinenteEuropeo rdf:type owl:Class ;
+                   rdfs:subClassOf <http://www.ontologydesignpatterns.org/cp/owl/place.owl#Place> ;
+                   rdfs:comment "Stati che fanno parte del continente europeo"@it ;
+                   rdfs:label "Continente europeo"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Europea
+:Europea rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Restriction ;
+                               owl:onProperty :haProvenienza ;
+                               owl:someValuesFrom :ContinenteEuropeo
+                             ] ;
+         rdfs:subClassOf :Provenienza ;
+         rdfs:comment "Funghi che arriavno da un stato europeo"@it ;
+         rdfs:label "Provenineza europea"@it .
+
+
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Famiglia
 :Famiglia rdf:type owl:Class ;
           owl:equivalentClass [ rdf:type owl:Class ;
                                 owl:oneOf ( :Amanitaceae
                                             :Boletaceae
+                                            :Morchellaceae
                                           )
                               ] ;
           rdfs:label "Famiglia"@it ,
@@ -224,29 +296,18 @@
         rdfs:label "Funghi"@it .
 
 
-###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#FunghiDelPiemonte
-:FunghiDelPiemonte rdf:type owl:Class ;
-                   owl:equivalentClass [ rdf:type owl:Restriction ;
-                                         owl:onProperty :Provenienza ;
-                                         owl:someValuesFrom :FunghiPiemonte
-                                       ] ;
-                   rdfs:subClassOf <http://www.ontologydesignpatterns.org/cp/owl/place.owl#Place> ;
-                   rdfs:comment "Fughi presenti in molti stati europeri e commerciati e consumati particolarmente sempre in Europa"@it ;
-                   rdfs:label "Funghi europei"@it .
-
-
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#FunghiPiùCari
 :FunghiPiùCari rdf:type owl:Class ;
                owl:equivalentClass [ rdf:type owl:Restriction ;
                                      owl:onProperty :Costo ;
                                      owl:someValuesFrom [ rdf:type rdfs:Datatype ;
                                                           owl:onDatatype xsd:integer ;
-                                                          owl:withRestrictions ( [ xsd:minInclusive 30
+                                                          owl:withRestrictions ( [ xsd:minInclusive 100
                                                                                  ]
                                                                                )
                                                         ]
                                    ] ;
-               rdfs:subClassOf :Funghi ;
+               rdfs:subClassOf :Commestibili ;
                rdfs:comment "Funghi il cui costo è mediamente elavato in commercio, facendo riferimento al mercato europeo"@it ;
                rdfs:label "Funghi più cari"@it .
 
@@ -260,6 +321,7 @@
 
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Genere
 :Genere rdf:type owl:Class ;
+        owl:equivalentClass <http://www.w3.org/2008/05/skos#Concept> ;
         rdfs:comment "Genere a cui appartengo i funghi"@it ;
         rdfs:label "Genere"@it .
 
@@ -296,15 +358,41 @@
 
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#MorchellaceaeCommestibili
 :MorchellaceaeCommestibili rdf:type owl:Class ;
+                           owl:equivalentClass [ rdf:type owl:Restriction ;
+                                                 owl:onProperty :appartieneAlla ;
+                                                 owl:hasValue :Morchellaceae
+                                               ] ;
                            rdfs:subClassOf :Genere ;
                            rdfs:comment "Genere a cui appartengo dei funghi, nello specifico quelli Morchella"@it ;
                            rdfs:label "Morchella"@it .
 
 
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Primavera
+:Primavera rdf:type owl:Class ;
+           owl:equivalentClass [ rdf:type owl:Restriction ;
+                                 owl:onProperty :haStagionalità ;
+                                 owl:someValuesFrom :Primavera
+                               ] ;
+           rdfs:subClassOf :Stagione .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Provenienza
+:Provenienza rdf:type owl:Class ;
+             rdfs:comment "Luogo di provenienza del fungo"@it ;
+             rdfs:label "Provenienza"@it .
+
+
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Sintomo
 :Sintomo rdf:type owl:Class ;
+         owl:equivalentClass <https://schema.org/MedicalSymptom> ;
          rdfs:comment "Sintomi più comuni che caratterizzano un'intossicazione dovuta dall'ingestione di un fungo"@it ;
          rdfs:label "Sintomo"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Stagione
+:Stagione rdf:type owl:Class ;
+          rdfs:comment "Stagioni in cui si possono trovare e raccogliere i funghi"@it ;
+          rdfs:label "Stagione"@it .
 
 
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Velenosi
@@ -316,6 +404,24 @@
           rdfs:subClassOf :Funghi ;
           rdfs:comment "Funghi velenosi, non commestibili per gli uomini e la maggior parte degli animali"@it ;
           rdfs:label "Velenosi"@it .
+
+
+###  http://www.w3.org/2008/05/skos#Concept
+<http://www.w3.org/2008/05/skos#Concept> rdf:type owl:Class ;
+                                         rdfs:comment """A SKOS concept can be viewed as an idea or notion; a unit of thought. However, what constitutes a unit of thought is subjective, and this definition is meant to be suggestive, rather than restrictive.
+
+The notion of a SKOS concept is useful when describing the conceptual or intellectual structure of a knowledge organization system, and when referring to specific ideas or meanings established within a KOS.
+
+Note that, because SKOS is designed to be a vehicle for representing semi-formal KOS, such as thesauri and classification schemes, a certain amount of flexibility has been built in to the formal definition of this class."""@en ;
+                                         rdfs:isDefinedBy "http://www.w3.org/2008/05/skos#Concept"@en ;
+                                         rdfs:label "Concept"@en .
+
+
+###  https://schema.org/MedicalSymptom
+<https://schema.org/MedicalSymptom> rdf:type owl:Class ;
+                                    rdfs:comment "Any complaint sensed and expressed by the patient (therefore defined as subjective) like stomachache, lower-back pain, or fatigue."@en ;
+                                    rdfs:isDefinedBy "https://schema.org/MedicalSymptom" ;
+                                    rdfs:label "MedicalSymptom"@en .
 
 
 #################################################################
@@ -332,7 +438,9 @@
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#AmanitaMuscaria
 :AmanitaMuscaria rdf:type owl:NamedIndividual ,
                           :Funghi ;
-                 :creaSintomo :Cefalea ;
+                 :creaSintomo :Cefalea ,
+                              :DoloriAddominali ,
+                              :Ipersalivazione ;
                  :haCappello :CappelloConvesso ;
                  :haGambo :GamboSlanciato ;
                  :haGenere :Amanita ;
@@ -346,6 +454,13 @@
 :Amanitaceae rdf:type owl:NamedIndividual ;
              rdfs:comment "Famiglia di un fungo"@it ;
              rdfs:label "Amanitaceae"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Aprile
+:Aprile rdf:type owl:NamedIndividual ,
+                 :Primavera ;
+        rdfs:comment "Mese primaverile in cui raccogliere funghi"@it ;
+        rdfs:label "Aprile"@it .
 
 
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Boletaceae
@@ -362,23 +477,27 @@
 
 
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#CappelloConvesso
-:CappelloConvesso rdf:type owl:NamedIndividual ,
-                           :Cappello ;
+:CappelloConvesso rdf:type owl:NamedIndividual ;
                   rdfs:comment "Forma tipica del cappello di alcuni funghi"@it ;
                   rdfs:label "Cappello convesso"@it .
 
 
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Cappello_a_coppa
-:Cappello_a_coppa rdf:type owl:NamedIndividual ,
-                           :Cappello ;
+:Cappello_a_coppa rdf:type owl:NamedIndividual ;
                   rdfs:comment "Forma tipica del cappello di alcuni funghi"@it ;
                   rdfs:label "Cappello a coppa"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Cappello_a_spugna
+:Cappello_a_spugna rdf:type owl:NamedIndividual ;
+                   rdfs:comment "Tipica forma del cappello di alcuni funghi che ricorda la forma e la consitenza di una spugna"@it ;
+                   rdfs:label "Cappello a spugna"@it .
 
 
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Cefalea
 :Cefalea rdf:type owl:NamedIndividual ,
                   :Sintomo ;
-         :Insorgenza 18 ;
+         :Insorgenza 4 ;
          rdfs:comment "Sintomo causato da intossicazione"@it ;
          rdfs:label "Cefalea"@it .
 
@@ -386,20 +505,32 @@
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#DoloriAddominali
 :DoloriAddominali rdf:type owl:NamedIndividual ,
                            :Sintomo ;
+                  :Insorgenza 2 ;
                   rdfs:comment "Sintomo causato da intossicazione"@it ;
                   rdfs:label "Dolori addominali"@it .
 
 
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Europa
+:Europa rdf:type owl:NamedIndividual ,
+                 :ContinenteEuropeo ;
+        rdfs:comment "identificativo generico per il continente europeo quando non è specificato lo Stato di apparteneza"@it ;
+        rdfs:label "Europa"@it .
+
+
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#GamboSlanciato
-:GamboSlanciato rdf:type owl:NamedIndividual ,
-                         :Gambo ;
+:GamboSlanciato rdf:type owl:NamedIndividual ;
                 rdfs:comment "Forma tipica del gambo di alcuni funghi"@it ;
                 rdfs:label "Gambo slanciato"@it .
 
 
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Gambo_cavo
+:Gambo_cavo rdf:type owl:NamedIndividual ;
+            rdfs:comment "Tipica forma del gambo di alcuni funghi"@it ;
+            rdfs:label "Gambo cavo"@it .
+
+
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Gambo_grosso
-:Gambo_grosso rdf:type owl:NamedIndividual ,
-                       :Gambo ;
+:Gambo_grosso rdf:type owl:NamedIndividual ;
               rdfs:comment "Forma tipica del gambo di alcuni funghi"@it ;
               rdfs:label "Gambo grosso"@it .
 
@@ -407,8 +538,36 @@
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Ipersalivazione
 :Ipersalivazione rdf:type owl:NamedIndividual ,
                           :Sintomo ;
+                 :Insorgenza 2 ;
                  rdfs:comment "Sintomo causato da intossicazione"@it ;
                  rdfs:label "Ipersalivazione"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Italia
+:Italia rdf:type owl:NamedIndividual ,
+                 :ContinenteEuropeo ;
+        rdfs:comment "Stato che fa parte del continente europeo"@it ;
+        rdfs:label "Italia"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Morchella
+:Morchella rdf:type owl:NamedIndividual ;
+           :appartieneAlla :Morchellaceae ;
+           rdfs:comment "Genere di un fungo"@it ;
+           rdfs:label "Morchella"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Morchellaceae
+:Morchellaceae rdf:type owl:NamedIndividual ;
+               rdfs:comment "Famiglia di un fungo"@it ;
+               rdfs:label "Morchellaceae"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Ottobre
+:Ottobre rdf:type owl:NamedIndividual ,
+                  :Autunno ;
+         rdfs:comment "Mese autunnale in cui è possibile raccogliere determinati tipi di funghi"@it ;
+         rdfs:label "Ottobre"@it .
 
 
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Porcino
@@ -418,10 +577,27 @@
          :haGambo :Gambo_grosso ;
          :haGenere :Boletus ;
          :haHabitat :boschiLatifoglie ;
+         :haProvenienza :Italia ;
+         :haStagionalità :Ottobre ;
          :Costo 30 ;
-         :Provenienza "Piemonte" ;
+         :ProvenienzaRegione "Piemonte" ;
          rdfs:comment "Specie di fungo"@it ;
          rdfs:label "Porcino"@it .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Spugnola
+:Spugnola rdf:type owl:NamedIndividual ,
+                   :Funghi ;
+          :haCappello :Cappello_a_spugna ;
+          :haGambo :Gambo_cavo ;
+          :haGenere :Morchella ;
+          :haHabitat :boschiConifere ,
+                     :boschiLatifoglie ;
+          :haProvenienza :Europa ;
+          :haStagionalità :Aprile ;
+          :Costo 350 ;
+          rdfs:comment "Specie di fungo"@it ;
+          rdfs:label "Spugnola"@it .
 
 
 ###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#boschiConifere
@@ -439,15 +615,16 @@
 
 
 #################################################################
-#    General axioms
+#    Annotations
 #################################################################
 
-[ rdf:type owl:AllDifferent ;
-  owl:distinctMembers ( :CappelloConvesso
-                        :Cappello_a_coppa
-                      )
-] .
+:Primavera rdfs:comment "Stagione primaverile che comprende soprattutto il mese di aprile per raccogliere deteminati tipi di funghi"@it ;
+           rdfs:label "Primavera"@it .
 
+
+#################################################################
+#    General axioms
+#################################################################
 
 [ rdf:type owl:AllDifferent ;
   owl:distinctMembers ( :Cefalea
@@ -466,13 +643,6 @@
 [ rdf:type owl:AllDifferent ;
   owl:distinctMembers ( :DoloriAddominali
                         :Ipersalivazione
-                      )
-] .
-
-
-[ rdf:type owl:AllDifferent ;
-  owl:distinctMembers ( :GamboSlanciato
-                        :Gambo_grosso
                       )
 ] .
 
