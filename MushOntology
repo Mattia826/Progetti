@@ -1,0 +1,164 @@
+@prefix : <http://www.semanticweb.org/bernardi_mattia/ontologies/2021/MushOntology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/bernardi_mattia/ontologies/2021/MushOntology> .
+
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/MushOntology> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.ontologydesignpatterns.org/cp/owl/partof.owl#hasPart
+<http://www.ontologydesignpatterns.org/cp/owl/partof.owl#hasPart> rdf:type owl:ObjectProperty .
+
+
+###  http://www.ontologydesignpatterns.org/cp/owl/place.owl#hasLocation
+<http://www.ontologydesignpatterns.org/cp/owl/place.owl#hasLocation> rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#haCappello
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#haCappello> rdf:type owl:ObjectProperty ;
+                                                                                        rdfs:subPropertyOf <http://www.ontologydesignpatterns.org/cp/owl/partof.owl#hasPart> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#haGambo
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#haGambo> rdf:type owl:ObjectProperty ;
+                                                                                     rdfs:subPropertyOf <http://www.ontologydesignpatterns.org/cp/owl/partof.owl#hasPart> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#haHabitat
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#haHabitat> rdf:type owl:ObjectProperty ;
+                                                                                       rdfs:subPropertyOf <http://www.ontologydesignpatterns.org/cp/owl/place.owl#hasLocation> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#haProvenienza
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#haProvenienza> rdf:type owl:ObjectProperty ;
+                                                                                           rdfs:subPropertyOf <http://www.ontologydesignpatterns.org/cp/owl/place.owl#hasLocation> .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  _TOP_OBJECT_PROPERTY_
+<_TOP_OBJECT_PROPERTY_> rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#haStagionalità
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#haStagionalità> rdf:type owl:DatatypeProperty ;
+                                                                                            rdfs:subPropertyOf <_TOP_OBJECT_PROPERTY_> .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.ontologydesignpatterns.org/cp/owl/place.owl#Place
+<http://www.ontologydesignpatterns.org/cp/owl/place.owl#Place> rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Autunno
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Autunno> rdf:type owl:Class ;
+                                                                                     rdfs:subClassOf <http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Stagione> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Cappello
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Cappello> rdf:type owl:Class ;
+                                                                                      rdfs:subClassOf <http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Caratteristiche> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Caratteristiche
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Caratteristiche> rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Colore
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Colore> rdf:type owl:Class ;
+                                                                                    rdfs:subClassOf <http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Cappello> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Commestibili
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Commestibili> rdf:type owl:Class ;
+                                                                                          rdfs:subClassOf <http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Funghi> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Estate
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Estate> rdf:type owl:Class ;
+                                                                                    rdfs:subClassOf <http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Stagione> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Europea
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Europea> rdf:type owl:Class ;
+                                                                                     rdfs:subClassOf <http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Provenienza> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Funghi
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Funghi> rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Gambo
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Gambo> rdf:type owl:Class ;
+                                                                                   rdfs:subClassOf <http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Caratteristiche> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Genere
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Genere> rdf:type owl:Class ;
+                                                                                    owl:equivalentClass <http://www.w3.org/2008/05/skos#Concept> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Habitat
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Habitat> rdf:type owl:Class ;
+                                                                                     rdfs:subClassOf <http://www.ontologydesignpatterns.org/cp/owl/place.owl#Place> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#IntossicazioneGrave
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#IntossicazioneGrave> rdf:type owl:Class ;
+                                                                                                 rdfs:subClassOf <http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#IntossicazioneLieve> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#IntossicazioneLieve
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#IntossicazioneLieve> rdf:type owl:Class ;
+                                                                                                 rdfs:subClassOf <http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Velenosi> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Primavera
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Primavera> rdf:type owl:Class ;
+                                                                                       rdfs:subClassOf <http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Stagione> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Provenienza
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Provenienza> rdf:type owl:Class ;
+                                                                                         rdfs:subClassOf <http://www.ontologydesignpatterns.org/cp/owl/place.owl#Place> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Provenienza_asiatica
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Provenienza_asiatica> rdf:type owl:Class ;
+                                                                                                  rdfs:subClassOf <http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Provenienza> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Sintomo
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Sintomo> rdf:type owl:Class ;
+                                                                                     owl:equivalentClass <https://schema.org/MedicalSymptom> .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Stagione
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Stagione> rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Velenosi
+<http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Velenosi> rdf:type owl:Class ;
+                                                                                      rdfs:subClassOf <http://www.semanticweb.org/bernardi_mattia/ontologies/2021/0/ProgettoEsame#Funghi> .
+
+
+###  http://www.w3.org/2008/05/skos#Concept
+<http://www.w3.org/2008/05/skos#Concept> rdf:type owl:Class .
+
+
+###  https://schema.org/MedicalSymptom
+<https://schema.org/MedicalSymptom> rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
